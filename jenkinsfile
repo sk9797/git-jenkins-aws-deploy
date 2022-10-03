@@ -6,13 +6,11 @@ pipeline {
       AWS_SECRET_ACCESS_KEY= "44qZGM4A0m/VIdLvgT4B/SZgZpngQpkq8bxWg+lP"
     }
     stages {
-        stage('deploy') {
-            steps {
-              bat "aws configure set region $AWS_DEFAULT_REGION" 
-              bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-              bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-              bat "aws s3 cp dist/index.html s3://aws-jekins-bucket --recursive"
-            }
+      stage('npm install') {
+        steps{
+          echo 'npm install commence'
+          bat "npm install"
         }
+      }
     }
 }
