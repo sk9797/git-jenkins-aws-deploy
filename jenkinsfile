@@ -27,8 +27,10 @@ pipeline {
       }
       stage('Build Stage') {
         steps {
-        sh 'ng build'
-        echo 'ng build finished'
+          milestone()
+          echo 'ng build started'
+          sh 'ng build --prod --aot --progress=false'
+          echo 'ng build finished'
         }
       }
     }
