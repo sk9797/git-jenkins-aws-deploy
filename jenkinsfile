@@ -11,7 +11,7 @@ pipeline {
               bat "aws configure set region $AWS_DEFAULT_REGION" 
               bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
               bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-              bat "aws s3 cp Code/index.html s3://aws-jekins-bucket --recursive"
+              bat "aws s3 cp dist/index.html s3://aws-jekins-bucket --recursive"
             }
         }
     }
