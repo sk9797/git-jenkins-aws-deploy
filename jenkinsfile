@@ -1,12 +1,15 @@
 pipeline {
     agent any
+    environment {
+      AWS_DEFAULT_REGION: "ap-south-1"
+    }
     stages {
         stage('deploy') {
             steps {
-              sh "aws configure set region $AWS_DEFAULT_REGION" 
-              sh "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-              sh "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-              sh "aws s3 cp Code/index.html s3://aws-jekins-bucket"
+              bat "aws configure set region $AWS_DEFAULT_REGION" 
+              bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
+              bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
+              bat "aws s3 cp Code/index.html s3://aws-jekins-bucket --recursive"
             }
         }
     }
