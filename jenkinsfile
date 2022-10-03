@@ -2,6 +2,8 @@ pipeline {
     agent any
     environment {
       AWS_DEFAULT_REGION: "ap-south-1"
+      AWS_ACCESS_KEY_ID: "AKIAVGIPNHVQE67IYAXZ"
+      AWS_SECRET_ACCESS_KEY: "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"
     }
     stages {
         stage('deploy') {
