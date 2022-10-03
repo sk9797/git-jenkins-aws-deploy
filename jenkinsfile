@@ -6,6 +6,18 @@ pipeline {
       AWS_SECRET_ACCESS_KEY= "44qZGM4A0m/VIdLvgT4B/SZgZpngQpkq8bxWg+lP"
     }
     stages {
+      stage('Checkout') {
+        steps{
+        //disable to recycle workspace data to save time/bandwidth
+        deleteDir()
+        checkout scm
+
+        //enable for commit id in build number
+        //env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
+        //env.git_commit_id_short = env.git_commit_id.take(7)
+        //currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
+        }
+      }
       stage('npm install') {
         steps{
           echo 'npm install started'
@@ -14,8 +26,10 @@ pipeline {
         }
       }
       stage('Lint stage') {
+        steps {
         sh 'ng lint'
         echo 'ng lint finished'
+        }
       }
     }
 }
