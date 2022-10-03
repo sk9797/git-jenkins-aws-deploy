@@ -8,9 +8,14 @@ pipeline {
     stages {
       stage('npm install') {
         steps{
-          echo 'npm install commence'
+          echo 'npm install started'
           bat "npm install"
+          echo 'npm install finished'
         }
+      }
+      stage('Lint stage') {
+        sh 'ng lint'
+        echo 'ng lint finished'
       }
     }
 }
