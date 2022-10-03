@@ -25,10 +25,10 @@ pipeline {
           echo 'npm install finished'
         }
       }
-      stage('Lint stage') {
+      stage('Build Stage') {
         steps {
-        sh 'ng lint'
-        echo 'ng lint finished'
+        sh 'ng build'
+        echo 'ng build finished'
         }
       }
     }
