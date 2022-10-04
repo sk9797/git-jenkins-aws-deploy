@@ -29,8 +29,7 @@ pipeline {
         steps {
           echo 'npm build started'
           bat "ng build"
-          echo 'npm
-           build finished'
+          echo 'npm build finished'
         }
       }
     }
