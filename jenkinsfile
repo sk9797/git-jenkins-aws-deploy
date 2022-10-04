@@ -30,7 +30,9 @@ pipeline {
           echo 'npm build started'
           bat "npm run build"
           echo 'npm build finished'
-          bat "dir dist/git-jenkins-aws-deploy"
+          bat "dir dist"
+          bat "dir"
+          bat "dir git-jenkins-aws-deploy"
           bat "dir"
         }
       }
