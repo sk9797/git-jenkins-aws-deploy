@@ -28,8 +28,9 @@ pipeline {
       stage('Build Stage') {
         steps {
           echo 'npm build started'
-          sh 'npm run build'
-          echo 'npm build finished'
+          bat 'npm run build'
+          echo 'npm
+           build finished'
         }
       }
     }
