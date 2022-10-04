@@ -30,10 +30,6 @@ pipeline {
           echo 'npm build started'
           bat "npm run build"
           echo 'npm build finished'
-          bat "dir dist"
-          bat "dir"
-          bat "dir git-jenkins-aws-deploy"
-          bat "dir"
         }
       }
       stage('deploy to s3') {
