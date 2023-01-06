@@ -4,6 +4,7 @@ pipeline {
       AWS_DEFAULT_REGION= "ap-south-1"
       AWS_ACCESS_KEY_ID=  "AKIAVGIPNHVQE67IYAXZ"
       AWS_SECRET_ACCESS_KEY= "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"
+      PROJECT_NAME="git-jenkins-aws-deploy"
     }
     stages {
       // stage('Checkout') { //extact code from git repo
@@ -29,6 +30,13 @@ pipeline {
           echo 'npm build started'
           bat "npm run ng build"
           echo 'npm build finished'
+        }
+      }
+      post('Archive'){
+        steps{
+          echo 'Archiving build artifacts...'
+          archiveArtifacts artifacts: "dist/${PROJECT_NAME}/*"
+          echo 'Archived build artifacts successfully'
         }
       }
       }
