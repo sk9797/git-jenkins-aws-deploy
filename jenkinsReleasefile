@@ -16,7 +16,7 @@ pipeline {
         copyArtifacts flatten: true, projectName: 'Git-Jenkins-Build-Pipeline-Test', selector: specific("${SELECTED_BUILD}"), target: 'artifacts'
             echo 'Copied artifacts successfully'
             echo 'Listing artifacts...'
-            sh 'ls -l artifacts'
+            bat 'ls -l artifacts'
       }
     }
     // stage('deploy to s3') {
