@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    environment {
+    AWS_DEFAULT_REGION = "ap-south-1"
+    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQE67IYAXZ"
+    AWS_SECRET_ACCESS_KEY = "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"
+    PROJECT_FOLDER = "."
+    PROJECT_NAME = "git-jenkins-aws-deploy"
+    BUILD_PIPELINE_NAME = "Git-Jenkins-Build-Pipeline-Test"
+  }
+    stages {
+    stage('Artifacts  Retrival') {
+        steps {
+            echo "Selected artifact ${SELECTED_BUILD}"
+        copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}", selector: specific("${SELECTED_BUILD}"), target: 'artifacts', flatten: true);
+            echo 'Copied artifacts successfully'
+            echo 'Listing artifacts...'
+            sh 'ls -l artifacts'
+      }
+    }
+    // stage('deploy to s3') {
+    //     steps {
+    //       bat "aws configure set region $AWS_DEFAULT_REGION" 
+    //       bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
+    //       bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
+    //       bat "aws s3 cp dist/git-jenkins-aws-deploy s3://aws-jekins-bucket --recursive"
+    //     }
+    //   }
+  }
+}
