@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
     AWS_DEFAULT_REGION = "ap-south-1"
-    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQE67IYAXZ"
-    AWS_SECRET_ACCESS_KEY = "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"
+    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQFQJO5NYP"
+    AWS_SECRET_ACCESS_KEY = "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"
     PROJECT_FOLDER = "."
     PROJECT_NAME = "git-jenkins-aws-deploy"
     BUILD_PIPELINE_NAME = "Git-Jenkins-Build-Pipeline-Test"
@@ -19,13 +19,15 @@ pipeline {
             bat 'dir artifacts'
       }
     }
-    // stage('deploy to s3') {
-    //     steps {
-    //       bat "aws configure set region $AWS_DEFAULT_REGION" 
-    //       bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-    //       bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-    //       bat "aws s3 cp dist/git-jenkins-aws-deploy s3://aws-jekins-bucket --recursive"
-    //     }
-    //   }
+    stage('deploy to s3') {
+        steps {
+          echo 'Deploy to s3 started....'
+          bat "aws configure set region $AWS_DEFAULT_REGION" 
+          bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
+          bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
+          bat "aws s3 cp dist/git-jenkins-aws-deploy s3://jenkins-release-bucket-test --recursive"
+          echo 'Deploy to s3 finished....'
+      }
+    }
   }
 }
