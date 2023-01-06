@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
     AWS_DEFAULT_REGION = "ap-south-1"
-    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQD74KR25M"
-    AWS_SECRET_ACCESS_KEY = "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"
+    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQK7LRWF7L"
+    AWS_SECRET_ACCESS_KEY = "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"
     PROJECT_FOLDER = "."
     PROJECT_NAME = "git-jenkins-aws-deploy"
   }
