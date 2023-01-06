@@ -15,7 +15,8 @@ pipeline {
         // copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}", selector: specific("${SELECTED_BUILD}"), target: 'artifacts', flatten: true);
         copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}",
           selector: [$class: 'ParameterizedBuildSelector',
-          parameterName: "${SELECTED_BUILD}"],
+          parameterName: 'copyArtifactSelector',
+          buildNumber: "${SELECTED_BUILD}"],
           target: 'artifacts',
           flatten: true);
             echo 'Copied artifacts successfully'
