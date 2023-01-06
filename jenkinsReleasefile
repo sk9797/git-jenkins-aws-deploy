@@ -12,7 +12,6 @@ pipeline {
     stage('Artifacts  Retrival') {
         steps {
             echo "Selected artifact ${SELECTED_BUILD}"
-        // copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}", selector: specific("${SELECTED_BUILD}"), target: 'artifacts', flatten: true);
         copyArtifacts flatten: true, projectName: 'Git-Jenkins-Build-Pipeline-Test', selector: specific("${SELECTED_BUILD}"), target: 'artifacts'
             echo 'Copied artifacts successfully'
             echo 'Listing artifacts...'
@@ -25,7 +24,7 @@ pipeline {
           bat "aws configure set region $AWS_DEFAULT_REGION" 
           bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
           bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-          bat "aws s3 s3://jenkins-release-bucket-test --recursive"
+          bat "aws s3 cp / s3://jenkins-release-bucket-test --recursive"
           echo 'Deploy to s3 finished....'
       }
     }
