@@ -25,7 +25,7 @@ pipeline {
           bat "aws configure set region $AWS_DEFAULT_REGION" 
           bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
           bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-          bat "aws s3 cp dist/git-jenkins-aws-deploy s3://jenkins-release-bucket-test --recursive"
+          bat "aws s3 s3://jenkins-release-bucket-test --recursive"
           echo 'Deploy to s3 finished....'
       }
     }
