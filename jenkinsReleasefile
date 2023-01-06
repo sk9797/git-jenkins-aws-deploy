@@ -13,11 +13,7 @@ pipeline {
         steps {
             echo "Selected artifact ${SELECTED_BUILD}"
         // copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}", selector: specific("${SELECTED_BUILD}"), target: 'artifacts', flatten: true);
-        copyArtifacts(projectName: "${BUILD_PIPELINE_NAME}",
-          selector: [$class: 'ParameterizedBuildSelector',
-          parameterName: "${SELECTED_BUILD}"],
-          target: 'artifacts',
-          flatten: true);
+        copyArtifacts flatten: true, projectName: 'Git-Jenkins-Build-Pipeline-Test', selector: specific("${SELECTED_BUILD}")
             echo 'Copied artifacts successfully'
             echo 'Listing artifacts...'
             sh 'ls -l artifacts'
