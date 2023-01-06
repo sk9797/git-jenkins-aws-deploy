@@ -53,7 +53,7 @@ pipeline {
     success{
       dir("${PROJECT_FOLDER}"){
         echo 'Archiving build artifacts...'
-        archiveArtifacts artifacts: "/*.*", onlyIfSuccessful: true
+        archiveArtifacts artifacts: "dist/${PROJECT_NAME}/*.*", onlyIfSuccessful: true
         echo 'Archived build artifacts successfully'
       }
     }
