@@ -35,7 +35,7 @@ pipeline {
       stage('Archive'){
         steps{
           echo 'Archiving build artifacts...'
-          archiveArtifacts artifacts: "dist/${PROJECT_NAME}/*.*"
+          archiveArtifacts artifacts: "/*.*"
           echo 'Archived build artifacts successfully'
         }
       }
