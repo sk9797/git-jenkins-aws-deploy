@@ -32,7 +32,7 @@ pipeline {
           echo 'npm build finished'
         }
       }
-      post('Archive'){
+      stage('Archive'){
         steps{
           echo 'Archiving build artifacts...'
           archiveArtifacts artifacts: "dist/${PROJECT_NAME}/*"
