@@ -1,51 +1,61 @@
 pipeline {
     agent any
     environment {
-      AWS_DEFAULT_REGION= "ap-south-1"
-      AWS_ACCESS_KEY_ID=  "AKIAVGIPNHVQE67IYAXZ"
-      AWS_SECRET_ACCESS_KEY= "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"
-      PROJECT_NAME="git-jenkins-aws-deploy"
-    }
+    AWS_DEFAULT_REGION = "ap-south-1"
+    AWS_ACCESS_KEY_ID = "AKIAVGIPNHVQE67IYAXZ"
+    AWS_SECRET_ACCESS_KEY = "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"
+    PROJECT_FOLDER = "."
+    PROJECT_NAME = "git-jenkins-aws-deploy"
+  }
     stages {
-      // stage('Checkout') { //extact code from git repo
-      //   steps{
-      //   //disable to recycle workspace data to save time/bandwidth
-      //   deleteDir()
-      //   checkout scm
+    // stage('Checkout') { //extact code from git repo
+    //   steps{
+    //   //disable to recycle workspace data to save time/bandwidth
+    //   deleteDir()
+    //   checkout scm
 
-      //   //enable for commit id in build number
-      //   //env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
-      //   //env.git_commit_id_short = env.git_commit_id.take(7)
-      //   //currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
-      //   }
-      // }
-      stage('npm install') {
+    //   //enable for commit id in build number
+    //   //env.git_commit_id = sh returnStdout: true, script: 'git rev-parse HEAD'
+    //   //env.git_commit_id_short = env.git_commit_id.take(7)
+    //   //currentBuild.displayName = "#${currentBuild.number}-${env.git_commit_id_short}"
+    //   }
+    // }
+    stage('npm install') {
         steps{
           bat "npm install"
           echo 'npm install finished'
-        }
       }
-      stage('Build Stage') {
+    }
+    stage('Build Stage') {
         steps {
           echo 'npm build started'
           bat "npm run ng build"
           echo 'npm build finished'
-        }
       }
-      stage('Archive'){
-        steps{
-          echo 'Archiving build artifacts...'
-          archiveArtifacts artifacts: "/*.*"
-          echo 'Archived build artifacts successfully'
-        }
+    }
+    // stage('Archive'){
+    //     steps{
+    //       echo 'Archiving build artifacts...'
+    //       archiveArtifacts artifacts: "dist/${PROJECT_NAME}/*"
+    //       echo 'Archived build artifacts successfully'
+    //   }
+    // }
+    // stage('deploy to s3') {
+    //     steps {
+    //       bat "aws configure set region $AWS_DEFAULT_REGION" 
+    //       bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
+    //       bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
+    //       bat "aws s3 cp dist/git-jenkins-aws-deploy s3://aws-jekins-bucket --recursive"
+    //     }
+    //   }
+  }
+  post{
+    success{
+      dir("${PROJECT_FOLDER}"){
+        echo 'Archiving build artifacts...'
+        archiveArtifacts artifacts: "/*.*", onlyIfSuccessful: true
+        echo 'Archived build artifacts successfully'
       }
-      // stage('deploy to s3') {
-      //     steps {
-      //       bat "aws configure set region $AWS_DEFAULT_REGION" 
-      //       bat "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"  
-      //       bat "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
-      //       bat "aws s3 cp dist/git-jenkins-aws-deploy s3://aws-jekins-bucket --recursive"
-      //     }
-      //   }
-      }
+    }
+  }
 }
